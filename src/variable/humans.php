@@ -1,6 +1,7 @@
 <html>
 <head><title>Hi!</title></head>
 <body>
+<h2>Exo sur les variables</h2>
 <?php if (isset($_GET['name'])) { ?>
     <h1>Aloha <?php echo $_GET['name']; ?>!</h1>
 <?php } ?>
