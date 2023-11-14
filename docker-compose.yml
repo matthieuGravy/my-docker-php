@@ -1,28 +1,34 @@
+# Version de la spécification de Docker Compose
 version: "3.8"
+
+# Définition des services
 services:
+  # Service Nginx
   nginx:
     container_name: nginx
-    build: ./docker/nginx
+    build: ./docker/nginx  # Utilise le Dockerfile dans le répertoire docker/nginx
     command: nginx -g "daemon off;"
     links:
       - php
     ports:
-      - "8080:80"
+      - "8080:80"  # Mappe le port 80 du conteneur vers le port 8080 de l'hôte
     volumes:
-      - ./logs/nginx:/var/log/nginx
-      - ./src:/var/www/html
+      - ./logs/nginx:/var/log/nginx  # Montre le répertoire de logs de Nginx en local
+      - ./src:/var/www/html  # Montre le répertoire source en local
 
+  # Service PHP
   php:
     container_name: php
-    build: ./docker/php
+    build: ./docker/php  # Utilise le Dockerfile dans le répertoire docker/php
     links:
       - mysql
     ports:
-      - "9000:9000"
+      - "9000:9000"  # Mappe le port 9000 du conteneur vers le port 9000 de l'hôte
     volumes:
-      - ./src:/var/www/html
-    working_dir: /var/www/html
+      - ./src:/var/www/html  # Montre le répertoire source en local
+    working_dir: /var/www/html  # Définit le répertoire de travail
 
+  # Service MySQL
   mysql:
     image: mysql:8.0.27
     container_name: mysql
@@ -32,10 +38,11 @@ services:
       MYSQL_USER: helloworld
       MYSQL_PASSWORD: "<db-password>"
     ports:
-      - "3306:3306"
+      - "3306:3306"  # Mappe le port 3306 du conteneur vers le port 3306 de l'hôte
     volumes:
-      - ./database/mysql:/var/lib/mysql
+      - ./database/mysql:/var/lib/mysql  # Montre le répertoire de données MySQL en local
 
+  # Service PHPMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -47,4 +54,4 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - "8085:80"
+      - "8085:80"  # Mappe le port 80 du conteneur vers le port 8085 de l'hôte
