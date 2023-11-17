@@ -16,5 +16,7 @@ $birth_year = 1973;
 $is_raining = false;
 $team_players = array('Jean','Jeanne','Dirk');
 ?>
+<h2>variable 2
+</h2>
 </body>
 </html>
